@@ -1,6 +1,11 @@
 # Superblock结构
 Superblock保存了F2FS的核心元数据的结构，包括磁盘大小，元区域的各个部分的起始地址等。
 
+## Superblock在元数据区域的物理结构
+
+![sb_layout](../img/F2FS-Layout/sb_layout.png)
+
+Superblock区域是由两个`struct f2fs_super_block`结构组成，互为备份。
 ## Superblock物理存放区域结构
 `f2fs_super_block`是F2FS对Superblock的具体数据结构实现，它保存在磁盘的最开始的位置，F2FS进行启动的时候从磁盘的前端直接读取出来。
 
@@ -88,7 +93,7 @@ feature = 0
 encryption_level = 
 ```
 
-## Superblock内存存管理结构
+## Superblock内存管理结构
 如上一节所述，`f2fs_super_block`在内存中的对应的结构是`struct f2fs_sb_info`，它除了包含了`struct f2fs_super_block`的信息以外，还包含了一些额外的功能，如锁、SIT、NAT对应的内存管理结构等，简单如下所述：
 ```c
 struct f2fs_sb_info {
